@@ -1,14 +1,33 @@
-from skianima.utils.paints import *
 from skianima import *
 
 anima=SkiAnima(width=400,height=200,max_frame=20)
 black_paint=Paint(BLACK)
+black_paint.setAntiAlias(True)
+black_paint.setStrokeCap(Paint.Cap(5))
+arc_paint=Paint(CYAN)
+arc_paint.setStrokeWidth(600)
 
-def test(canvas:Canvas,anim_frame:int,anim_phase:float):
-    canvas.drawRect(Rect(100+100*anim_phase,100),RED)
 
-def test1(canvas:Canvas,anim_frame:int,anim_phase:float):
-    canvas.drawCircle(200,100,1+50*anim_phase,BLUE)
+def test(canvas:Canvas,frame:int,phase:float):
+    canvas.drawRect(
+        Rect(move(10,200,phase,cubic),100),
+        RED
+    )
+
+def test1(canvas:Canvas,frame:int,phase:float):
+    canvas.drawArc(
+        rect_at(1200,1200,center(anima)),
+        move(-90,0,phase,ease_out_quint),move(0,180,phase,ease_out_quint),
+        True,
+        arc_paint
+    )
+    canvas.drawArc(
+        rect_at(1200,1200,center(anima)),
+        move(90,180,phase,ease_out_quint),move(0,180,phase,ease_out_quint),
+        True,
+        arc_paint
+    )
+
 
 def init_canvas(canvas:skia.Canvas):
     canvas.clear(Color4f(0,0,0,0))

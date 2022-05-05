@@ -26,9 +26,10 @@ class SkiAnima:
     def run_with(self,format:skia.EncodedImageFormat)->None:
         """Render images and save or overwrite them to './output/'"""
         images=self.__draw()
+        name_length=len(str(self.max_frame))
         if not os.path.exists("output"): os.makedirs("output")
         for i in range(len(images)):
-            filepath="output/"+str(i+1)+".png"
+            filepath="output/"+str(i+1).zfill(name_length)+".png"
             print(filepath)
             images[i].save(filepath,format)
         
